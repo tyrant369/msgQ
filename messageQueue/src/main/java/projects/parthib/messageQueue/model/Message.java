@@ -1,15 +1,32 @@
 package projects.parthib.messageQueue.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "messages")
 @Data
+@RequiredArgsConstructor
+@Builder
 public class Message {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private final String key;
     private final String payload;
-    private final long timestamp;
+    private LocalDateTime timestamp;
+
+    @ManyToOne
+    @JoinColumn(name = "partition_id")
+    private Partition partition;
+
+    @PrePersist
+    protected void onCreate() {
+        this.timestamp = LocalDateTime.now();
+    }
 }

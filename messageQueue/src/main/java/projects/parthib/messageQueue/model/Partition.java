@@ -1,29 +1,27 @@
 package projects.parthib.messageQueue.model;
 
+import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Queue;
-import java.util.concurrent.ConcurrentLinkedQueue;
 
+@Entity
+@Table(name = "partitions")
 @Data
+@RequiredArgsConstructor
+@Builder
 public class Partition {
-    private final Queue<Message> messages;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private int partitionIndex;
 
-    public Partition() {
-        this.messages = new ConcurrentLinkedQueue<>();
-    }
+    @ManyToOne
+    @JoinColumn(name = "topic_id")
+    private Topic topic;
 
-    public int size() {
-        return messages.size();
-    }
-
-    public void publish(Message message) {
-        messages.offer(message);
-    }
-
-    public List<Message> poll(int offset) {
-        return new ArrayList<>(messages).subList(offset, messages.size());
-    }
+    @OneToMany(mappedBy = "partition", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Message> messages;
 }

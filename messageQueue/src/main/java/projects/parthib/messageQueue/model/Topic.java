@@ -1,32 +1,25 @@
 package projects.parthib.messageQueue.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 @Entity
 @Table(name = "topics")
 @Data
+@RequiredArgsConstructor
+@Builder
 public class Topic {
-    private final String name;
-    private final List<Partition> partitions;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    public Topic(String name, int partitionCount) {
-        this.name = name;
-        this.partitions = IntStream.range(0, partitionCount)
-                .mapToObj(i -> new Partition())
-                .collect(Collectors.toList());
-    }
+    private String name;
+    private int numPartitions;
 
-    public int getPartitionCount() {
-        return partitions.size();
-    }
-
-    public Partition getPartition(int index) {
-        return partitions.get(index);
-    }
+    @OneToMany(mappedBy = "topic", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Partition> partitions;
 }
