@@ -14,9 +14,13 @@ public class ConsumerOffset {
     private Long id;
 
     private String consumerId;
-    private int offset;
+    private Long offset;
 
     @ManyToOne
     @JoinColumn(name = "partition_id")
     private Partition partition;
+
+    @ManyToOne
+    @JoinColumn(name = "topic_id")
+    private Topic topic;
 }
