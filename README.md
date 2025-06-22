@@ -145,9 +145,10 @@ Register it in `PartitionStrategyFactory` for auto-selection.
 
 ## Author
 
-**Parthib Dhar**  
-prthbdhr@gmail.com.com  
-[LinkedIn](https://linkedin.com/in/prthbdhr)
+**Parthib Dhar**
+Phone : +91 9674115528
+Email : prthbdhr@gmail.com.com
+LinkedIn : [LinkedIn](https://linkedin.com/in/prthbdhr)
 
 ---
 
