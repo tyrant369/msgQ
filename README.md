@@ -10,7 +10,7 @@
 - Create new topics with configurable number of partitions
 - Edit topic configuration
 - Delete topics
-- Use different **partitioning strategies** (`KEY_HASH`, `ROUND_ROBIN`, etc.)
+- Use different **partitioning strategies** (`KEY_HASH`, etc.)
 
 ### Producers
 - Publish messages with `key` and `payload`
